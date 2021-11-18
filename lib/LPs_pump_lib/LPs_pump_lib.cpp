@@ -9,18 +9,19 @@
 
 #define Relay  13  			// Arduino pin where the relay connects
 
-void initMoteur()  
+void initPump()  
 {
   digitalWrite(Relay, PUMP_OFF);      // initialise the relay to off
   pinMode(Relay, OUTPUT);   
   delay(1000); 
 }
 
-void activateMoteur() 				// Turn the relay on and off in sequence
+void activatePump() 				// Turn the relay on and off in sequence
 {
   digitalWrite(Relay, PUMP_ON);	// turn the relay on
-  delay(1000);               		// wait
- 
+}
+
+void desactivatePumP()
+{
   digitalWrite(Relay, PUMP_OFF);	// turn the relay off
-  delay(1000);              		// wait
 }

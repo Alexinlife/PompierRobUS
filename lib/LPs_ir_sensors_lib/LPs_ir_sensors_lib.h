@@ -3,7 +3,7 @@
 
 
 void initFireSensor();
-void detectFire();
+int detectFire();
 
 
 #endif

@@ -2,7 +2,7 @@
 #define LPS_PUMP_LIB_H
 
 
-void initMoteur();
-void activateMoteur();
-
+void initPump();
+void activatePump();
+void desactivatePumP();
 #endif

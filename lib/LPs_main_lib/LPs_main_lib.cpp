@@ -1,21 +1,19 @@
 #include <LPs_main_lib.h>
 
-#include <Servo.h>  //include servo.h library
-Servo myservo;
+MegaServo myservo;
  
 int pos = 0;    
-boolean fire = false;
-
+int initialposition = 84;
  
 void initServo()
 { 
   myservo.attach(11);
-  myservo.write(90); 
+  myservo.write(initialposition);
 }
  
-void put_off_fire()
+int put_off_fire()
 {
-    for (pos = 90; pos <= 120; pos += 1) { 
+    for (pos = 82; pos <= 120; pos += 1) { 
     myservo.write(pos); 
     delay(10);  
   }
@@ -23,7 +21,10 @@ void put_off_fire()
     myservo.write(pos); 
     delay(10);
   }
-  myservo.write(90);
+    for (pos = 60; pos <= initialposition; pos += 1) { 
+    myservo.write(pos); 
+    delay(10);
+  }
 
-  fire=false;
+  return(true);
 }
