@@ -3,7 +3,15 @@
 
 #include <Arduino.h>
 #include <LibRobus.h>
+#include <Servo.h>
 #include <LPs_sonar_lib.h>
 #include <LPs_movement_lib.h>
+#include <LPs_pump_lib.h>
+#include <LPs_ir_sensors_lib.h>
+
+
+void initServo();
+void put_off_fire();
+
 
 #endif

@@ -2,5 +2,8 @@
 #define LPS_IR_SENSORS_LIB_H
 
 
+void initFireSensor();
+void detectFire();
+
 
 #endif
