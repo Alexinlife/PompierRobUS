@@ -13,7 +13,7 @@ void initServo()
  
 int put_off_fire()
 {
-    for (pos = 82; pos <= 120; pos += 1) { 
+  for (pos = 82; pos <= 120; pos += 1) { 
     myservo.write(pos); 
     delay(10);  
   }
@@ -21,7 +21,7 @@ int put_off_fire()
     myservo.write(pos); 
     delay(10);
   }
-    for (pos = 60; pos <= initialposition; pos += 1) { 
+  for (pos = 60; pos <= initialposition; pos += 1) { 
     myservo.write(pos); 
     delay(10);
   }

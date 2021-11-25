@@ -6,5 +6,6 @@
 #include <LPs_movement_lib.h>
 
 int getUS();
+int sonar3();
 
 #endif

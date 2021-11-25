@@ -24,36 +24,6 @@ long PID(long PreviousTime, float TargetSpeed)
   return PreviousTime;
 }
 
-
-void uTurn(void)
-{
-  ENCODER_Reset(0);
-  ENCODER_Reset(1);
-  MOTOR_SetSpeed(0, -.3);
-  MOTOR_SetSpeed(1, .3);
-  bool i = true;
-  int F0 = 0;
-  int F1 = 0;
-  while (i)
-  {
-    if (ENCODER_Read(0) >= 3950)
-    {
-      MOTOR_SetSpeed(0, 0);
-      F0 = 1;
-    }
-    if (ENCODER_Read(1) <= -3750)
-    {
-      MOTOR_SetSpeed(1, 0);
-      F1 = 1;
-    }
-    if ((F0 == 1) && (F1 == 1))
-    {
-      i = false;
-    }
-  }
-}
-
-
 void Tourner(int angle)
 {
   float arc = angle*(3.1416*19.2)/360;
@@ -107,53 +77,6 @@ void Tourner(int angle)
     delay(100);
     ENCODER_Reset(0);
     ENCODER_Reset(1);
-}
-
-
-void Gauche(int32_t AngleG)
-{
-  ENCODER_Reset(0);
-  ENCODER_Reset(1);
-  AngleG = -AngleG;
-  MOTOR_SetSpeed(0, 0);
-  MOTOR_SetSpeed(1, 0.4);
-  uint32_t dm = ((120 * AngleG) / 360);
-  float cycle = (3200L * dm) / 23.8761;
-
-  bool i = true;
-  while (i)
-  {
-    if (ENCODER_Read(1) >= cycle)
-    {
-      MOTOR_SetSpeed(0, 0);
-      MOTOR_SetSpeed(1, 0);
-      ENCODER_Reset(0);
-      ENCODER_Reset(1);
-      i = false;
-    }
-  }
-}
-void Droite(int32_t AngleD)
-{
-  ENCODER_Reset(0);
-  ENCODER_Reset(1);
-  MOTOR_SetSpeed(0, 0);
-  MOTOR_SetSpeed(1, -0.4);
-  uint32_t dm = ((120 * AngleD) / 360);
-  float cycle = (3200L * dm) / 23.8761;
-  bool i = true;
-
-  while (i)
-  {
-    if (ENCODER_Read(1) <= cycle)
-    {
-      MOTOR_SetSpeed(0, 0);
-      MOTOR_SetSpeed(1, 0);
-      ENCODER_Reset(0);
-      ENCODER_Reset(1);
-      i = false;
-    }
-  }
 }
 
 void Avancer(int32_t DistanceA)

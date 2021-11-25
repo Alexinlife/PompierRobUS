@@ -29,41 +29,41 @@ int detectFire()
   // ex: 'long int map(long int, long int, long int, long int, long int)'
   int range = map(sensorReading, sensorMin, sensorMax, 0, 3);
 
-  int sensorReading1 = analogRead(RightSensor);
+  int sensorReading1 = analogRead(LeftSensor);
   int range1 = map(sensorReading1, sensorMin, sensorMax, 0, 3);
   
-  int sensorReading2 = analogRead(LeftSensor);
+  int sensorReading2 = analogRead(RightSensor);
   int range2 = map(sensorReading2, sensorMin, sensorMax, 0, 3);
   
   switch (range) {
   case 0:    // A fire closer than 1.5 feet away.
     fire = true;
-    //Serial.println("** Close Fire center **");
+    Serial.println("** Close Fire center **");
     break;
   case 1:    // A fire between 1-3 feet away.
-    //Serial.println("** Distant Fire center **");
+    Serial.println("** Distant Fire center **");
     break;
 
   }
   switch (range1) {
   case 0:    // A fire closer than 1.5 feet away.
     fire = true;
-    Tourner(20);
-    //Serial.println("** Close Fire from the left **");
+    //Tourner(-20);
+    Serial.println("** Close Fire from the left **");
     break;
   case 1:    // A fire between 1-3 feet away.
-    //Serial.println("** Distant Fire from the left **");
+    Serial.println("** Distant Fire from the left **");
     break;
 
   }
   switch (range2){
   case 0:    // A fire closer than 1.5 feet away.
     fire = true;
-    Tourner(-20);
-    //Serial.println("** Close Fire to the right **");
+    //Tourner(20);
+    Serial.println("** Close Fire to the right **");
     break;
   case 1:    // A fire between 1-3 feet away.
-    //Serial.println("** Distant Fire from the right **");
+    Serial.println("** Distant Fire from the right **");
     break;
   }
   delay(200);  // delay between reads

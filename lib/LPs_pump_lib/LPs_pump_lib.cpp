@@ -7,7 +7,7 @@
 #define PUMP_ON 1			// Define relay on pin state
 #define PUMP_OFF 0			// Define relay off pin state
 
-#define Relay  13  			// Arduino pin where the relay connects
+#define Relay  38 			// Arduino pin where the relay connects
 
 void initPump()  
 {
