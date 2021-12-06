@@ -84,26 +84,26 @@ void deplacement(int zone){
     Avancer(50);
   break;
   case 2:
-    Tourner(90);
+    Tourner(85);
     Avancer(73);
-    Tourner(-90);
-    Avancer(20);
-    Tourner(-90);
-    Avancer(50);
+    Tourner(-88);
+    Avancer(28);
+    Tourner(-83);
+    Avancer(55);
     Tourner(90);
-    Avancer(40);
-    Tourner(90);
-    Avancer(50);
-    Tourner(-90);
-    Avancer(90);
+    Avancer(45);
+    Tourner(87);
+    Avancer(80);
+    Tourner(-85);
+    Avancer(77);
   break;
   case 3:
     Tourner(-90);
-    Avancer(80);
+    Avancer(68);
     Tourner(90);
     Avancer(50);
     Tourner(90);
-    Avancer(50);
+    Avancer(45);
   break;
   case 4:
 
