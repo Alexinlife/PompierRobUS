@@ -4,6 +4,6 @@
 
 void initFireSensor();
 int detectFire();
-
-
+int centerFire();
+void distanceFire();
 #endif

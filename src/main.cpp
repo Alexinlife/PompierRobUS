@@ -10,95 +10,156 @@ float speed0 = 0;
 float speed1 = 0.5; 
 unsigned char compteur = 0;
 bool test = false;
-bool feu = false;
-bool gazDetecter = false;
-bool flagObstacle = false;
+bool Flagblt = false;
+int testPrint = 0;
+
+
 
 void setup()
 {
   Serial.begin(9600);
+  Serial1.begin(9600);
   BoardInit();
   initPump();
   initServo();
   initFireSensor();
+  pinMode(42, OUTPUT);
+  Serial.print("panis");
 }
 
-void audit2()
+int readBluethoot()
 {
-  if(ROBUS_IsBumper(3))
+  char Incoming_value = NULL;
+  int value = 0;
+  if (Serial1.available()) 
   {
-    compteur++;
-    if(compteur > 5)
+   Incoming_value = Serial1.read();
+   Serial.print("Valeur dents blue: ");Serial.println(Incoming_value);
+   if(Incoming_value == '0')
     {
-      compteur = 1;
+       value = 0;
     }
-    delay(500);
+    else if(Incoming_value == '1')
+    {
+      value = 1;
+    }
+    else if(Incoming_value == '2')
+    {
+      value = 2;
+    }
+    else if(Incoming_value == '3')
+    {
+      value = 3;
+    }
+    else if(Incoming_value == '4')
+    {
+      value = 4;
+    }
   }
-    switch (compteur) {
-    case 1:
-      Serial.print("Gaz detecter:"); Serial.println(ReadSmokeSensor());
-      break;
-    case 2:
-      activatePump();
-      Serial.println("Pompe activer:");
-      delay(500);
-      desactivatePumP();
-      Serial.println("Pompe desactiver:");
-      delay(500);
-      break;
-    case 3:
-      Serial.print("Distance:"); Serial.println(getUS());
-      break;
-    case 4:
-      detectFire();
-      break;
-    case 5:
-      put_off_fire();
-      break;
+  return(value);
+ }
+
+void giro(int etat){
+  if(etat == 0){
+    digitalWrite(42, LOW);
+  }
+  else{
+    digitalWrite(42, HIGH);
   }
 }
+void deplacement(int zone){
+  switch (zone) {
+  case 1:
+    Tourner(-90);
+    Avancer(68);
+    Tourner(90);
+    Avancer(50);
+    Tourner(90);
+    Avancer(45);
+    Tourner(-90);
+    Avancer(55);
+    Tourner(-90);
+    Avancer(17);
+    Tourner(90);
+    Avancer(50);
+  break;
+  case 2:
+    Tourner(90);
+    Avancer(73);
+    Tourner(-90);
+    Avancer(20);
+    Tourner(-90);
+    Avancer(50);
+    Tourner(90);
+    Avancer(40);
+    Tourner(90);
+    Avancer(50);
+    Tourner(-90);
+    Avancer(90);
+  break;
+  case 3:
+    Tourner(-90);
+    Avancer(80);
+    Tourner(90);
+    Avancer(50);
+    Tourner(90);
+    Avancer(50);
+  break;
+  case 4:
+
+  break;
+  }
+}
+
 void loop()
 {
-  //bluethoot reception
-  // if bluethoot reception is good
+  int flagBluetooth = readBluethoot();
+  int flagGaz = 0;
 
-  if(ROBUS_IsBumper(3))
-  {
-    compteur++;
-    if(compteur > 5)
-    {
-      compteur = 1;
+  while(flagBluetooth > 0 && flagGaz == 0){
+    flagGaz = ReadSmokeSensor();
+    if(flagGaz == 1){
+      giro(flagGaz);
     }
-    delay(500);
   }
-    switch (compteur) {
-    case 1:
-      Serial.print("Gaz detecter:"); Serial.println(ReadSmokeSensor());
-      break;
-    case 2:
-      activatePump();
-      Serial.println("Pompe activer:");
-      delay(2000);
-      desactivatePumP();
-      Serial.println("Pompe desactiver:");
-      delay(500);
-      break;
-    case 3:
-      Serial.print("Distance:"); Serial.println(getUS());
-      break;
-    case 4:
-      detectFire();
-      break;
-    case 5:
-      put_off_fire();
-      compteur = 1;
-      break;
-  }
-
-
-  /*flagObstacle = false;
-  do 
+  while (flagGaz)
   {
+    //programmer la fonction qui gere les chemin
+    deplacement(flagBluetooth);
+    resetMOTORS();
+    MOTOR_SetSpeed(0, -.15);
+    MOTOR_SetSpeed(1,0.15);
+    while(centerFire() != 1);
+    delay(200);
+    distanceFire();
+    activatePump();
+    put_off_fire();
+    desactivatePumP();
+    flagGaz = 0;
+    giro(flagGaz);
+  }
+
+
+
+
+    /*activatePump();
+    put_off_fire();
+    desactivatePumP();*/
+    //distanceFire();
+    //delay(1000);
+    /*if(Smoke)
+    {
+      //aller dans le secteur mentionnee et chercher le feu
+      while(detectFire())
+      {
+        activatePump();
+        put_off_fire();
+      }
+      desactivatePumP();
+      Smoke = 0;
+    }*/
+
+  /*
     if(millis() >= tempsUS + 100)
     {
       tempsUS = millis();
@@ -111,45 +172,5 @@ void loop()
       MOTOR_SetSpeed(0, speed0);
     }
     PreviousTime = PID(PreviousTime, speed0);
-    flagObstacle = true;
-  }while(us >= 15);
-
-  if(flagObstacle)
-  {
-    Reculer(-8);
-    Tourner(90);
-    int distanceD = getUS();
-    delay(100);
-    Tourner(-180);
-    int distanceG = getUS();
-    delay(100);
-    Tourner(90);
-    if(distanceD>=distanceG)
-    {
-      Tourner(90);
-    }
-    else
-    {
-      Tourner(-90);
-    }
-  }*/
-/*
-  int Gaz = ReadSmokeSensor();
-  if (Gaz)
-  {
-    gazDetecter = true;
-  }
-  
-  if(gazDetecter)
-  {
-    //aller dans le secteur mentionnee et chercher le feu
-    feu = detectFire();
-    while(feu)
-    {
-      activatePump();
-      put_off_fire();
-    }
-    desactivatePumP();
-  }
-  */
+    */
 }

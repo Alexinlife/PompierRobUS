@@ -11,7 +11,7 @@ void initServo()
   myservo.write(initialposition);
 }
  
-int put_off_fire()
+void put_off_fire()
 {
   for (pos = 82; pos <= 120; pos += 1) { 
     myservo.write(pos); 
@@ -26,5 +26,4 @@ int put_off_fire()
     delay(10);
   }
 
-  return(true);
 }

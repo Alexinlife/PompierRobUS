@@ -12,7 +12,7 @@
 
 
 void initServo();
-int put_off_fire();
+void put_off_fire();
 
 
 #endif

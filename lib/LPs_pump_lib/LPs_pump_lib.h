@@ -4,5 +4,6 @@
 
 void initPump();
 void activatePump();
+void reversePump();
 void desactivatePumP();
 #endif
