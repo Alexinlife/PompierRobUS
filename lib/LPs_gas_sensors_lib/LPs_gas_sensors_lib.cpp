@@ -10,7 +10,7 @@ int ReadSmokeSensor()
   /* Valeurs du smoke sensor*/
     int mqx_value = analogRead(mqx_analogPin);
     //Serial.println(mqx_value);
-  if (mqx_value >= 400) 
+  if (mqx_value >= 600) 
   {
     //Serial.println("Gaz detected");
     GazDetected = true;

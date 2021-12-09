@@ -138,39 +138,4 @@ void loop()
     flagGaz = 0;
     giro(flagGaz);
   }
-
-
-
-
-    /*activatePump();
-    put_off_fire();
-    desactivatePumP();*/
-    //distanceFire();
-    //delay(1000);
-    /*if(Smoke)
-    {
-      //aller dans le secteur mentionnee et chercher le feu
-      while(detectFire())
-      {
-        activatePump();
-        put_off_fire();
-      }
-      desactivatePumP();
-      Smoke = 0;
-    }*/
-
-  /*
-    if(millis() >= tempsUS + 100)
-    {
-      tempsUS = millis();
-      us = getUS(); 
-    }
-    if (speed0 <= speed1)
-    {
-      speed0 += .01;
-      delay(15);    //  Fonctionne bien a 5ms
-      MOTOR_SetSpeed(0, speed0);
-    }
-    PreviousTime = PID(PreviousTime, speed0);
-    */
 }
